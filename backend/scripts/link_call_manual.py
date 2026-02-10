@@ -52,7 +52,13 @@ def link_call(call_id, candidate_name_fragment):
         db.close()
 
 if __name__ == "__main__":
-    # Call ID found from list_recent_calls.py
-    call_id = "019c476c-eea8-799d-a045-be911ea06b15"
-    candidate = "ali"
+    if len(sys.argv) > 2:
+        call_id = sys.argv[1]
+        candidate = sys.argv[2]
+    else:
+        # Fallback / Example
+        call_id = "019c48d0-1951-7449-84ea-1f23042c4b46"
+        candidate = "john"
+        
+    print(f"Linking {call_id} to {candidate}...")
     link_call(call_id, candidate)

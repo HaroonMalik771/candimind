@@ -35,27 +35,13 @@ async def list_recent_calls():
             
             if response.status_code == 200:
                 calls = response.json()
-                print(f"Found {len(calls)} calls.\n")
-                
-                for call in calls:
-                    call_id = call.get("id")
-                    status = call.get("status")
-                    started_at = call.get("startedAt")
-                    ended_at = call.get("endedAt")
-                    analysis = call.get("analysis", {})
-                    summary = analysis.get("summary", "No summary")
-                    
-                    # Try to get structured output result
-                    artifact = call.get("artifact", {})
-                    structured_outputs = artifact.get("structuredOutputs", {})
-                    has_results = len(structured_outputs) > 0
-                    
-                    print(f"ID: {call_id}")
-                    print(f"Time: {started_at}")
-                    print(f"Status: {status}")
-                    print(f"Results Available: {has_results}")
-                    print(f"Summary: {summary[:100]}...")
-                    print("-" * 50)
+                # Sort by startedAt descending
+                calls.sort(key=lambda x: x.get('startedAt', ''), reverse=True)
+
+                if calls:
+                    print(f"LATEST_CALL_ID:{calls[0].get('id')}")
+                else:
+                    print("NO_CALLS_FOUND")
                     
             else:
                 print(f"❌ Failed to fetch calls: {response.status_code}")
