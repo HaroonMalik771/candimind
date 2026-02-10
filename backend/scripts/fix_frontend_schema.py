@@ -57,7 +57,6 @@ async def fix_frontend():
                 frontend_schema_id = create_resp.json().get("id")
                 print(f"✅ Created new schema: {frontend_schema_id}")
             else:
-            else:
                 print(f"❌ Failed to create schema. Status: {create_resp.status_code}")
                 print(f"Error Response: {create_resp.text}")
                 return
