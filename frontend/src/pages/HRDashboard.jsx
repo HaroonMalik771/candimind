@@ -432,6 +432,24 @@ export default function HRDashboard() {
 function ViewResultButton({ result }) {
     const [showModal, setShowModal] = useState(false);
 
+
+
+
+    function cleanTranscript(transcript) {
+        if (!transcript) return '';
+
+        // Find first real dialogue marker
+        const botIndex = transcript.indexOf('BOT:');
+        const userIndex = transcript.indexOf('USER:');
+
+        // pick the earliest valid one (BOT or USER)
+        const startIndexCandidates = [botIndex, userIndex].filter(i => i !== -1);
+        if (startIndexCandidates.length === 0) return transcript; // fallback
+
+        const startIndex = Math.min(...startIndexCandidates);
+        return transcript.slice(startIndex).trim();
+    }
+
     if (!showModal) {
         return (
             <button
@@ -636,7 +654,8 @@ function ViewResultButton({ result }) {
                                 fontSize: '0.875rem',
                                 lineHeight: 1.6
                             }}>
-                                {result.transcript}
+                                {cleanTranscript(result.transcript)}
+
                             </div>
                         </div>
                     )}

@@ -156,7 +156,7 @@ export default function CandidateInterview() {
                                 <input
                                     type="text"
                                     className="input"
-                                    placeholder="Enter password (e.g., A7X9K2)"
+                                    placeholder="Enter password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value.toUpperCase())}
                                     disabled={verifying}
